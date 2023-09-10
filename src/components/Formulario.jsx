@@ -1,11 +1,4 @@
-import {
-  FormControl,
-  InputLabel,
-  Select,
-  MenuItem,
-  Button,
-  Box,
-} from "@mui/material";
+import { FormControl, InputLabel, Select, MenuItem, Grid } from "@mui/material";
 import { useNoticias } from "../hooks/useNoticias";
 
 const CATEGORIAS = [
@@ -18,31 +11,49 @@ const CATEGORIAS = [
   { value: "technology", label: "Tecnología" },
 ];
 
+const PAISES = [
+  { value: "us", label: "Estados Unidos" },
+  { value: "jp", label: "Japón" },
+  { value: "mx", label: "México" },
+  { value: "br", label: "Brasil" },
+  { value: "ar", label: "Argentina" },
+];
+
 export const Formulario = () => {
-  const { categoria, handleChangeCategoria } = useNoticias();
+  const { categoria, handleChangeCategoria, handleChangePais, pais } =
+    useNoticias();
 
   return (
-    <>
-      <FormControl fullWidth>
-        <InputLabel>Categoría</InputLabel>
-        <Select
-          label="Categoría"
-          onChange={handleChangeCategoria}
-          value={categoria}
-        >
-          {CATEGORIAS.map((categoria) => (
-            <MenuItem key={categoria.value} value={categoria.value}>
-              {categoria.label}
-            </MenuItem>
-          ))}
-        </Select>
+    <Grid container spacing={2}>
+      <Grid item xs={6}>
+        <FormControl fullWidth>
+          <InputLabel>Categoría</InputLabel>
+          <Select
+            label="Categoría"
+            onChange={handleChangeCategoria}
+            value={categoria}
+          >
+            {CATEGORIAS.map((categoria) => (
+              <MenuItem key={categoria.value} value={categoria.value}>
+                {categoria.label}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+      </Grid>
 
-        <Box sx={{ marginTop: 2 }}>
-          <Button fullWidth variant="contained" color="primary">
-            Buscar Noticias
-          </Button>
-        </Box>
-      </FormControl>
-    </>
+      <Grid item xs={6}>
+        <FormControl fullWidth>
+          <InputLabel>País</InputLabel>
+          <Select label="País" onChange={handleChangePais} value={pais}>
+            {PAISES.map((pais) => (
+              <MenuItem key={pais.value} value={pais.value}>
+                {pais.label}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+      </Grid>
+    </Grid>
   );
 };
